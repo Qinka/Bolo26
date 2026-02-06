@@ -1,0 +1,50 @@
+[package]
+name = "yolo26"
+version = "0.1.0"
+edition = "2021"
+authors = ["Bolo26 Contributors"]
+description = "YOLO v26 implementation in Rust using Burn framework"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+# Burn deep learning framework
+burn = { version = "0.16", features = ["train", "ndarray"] }
+burn-ndarray = "0.16"
+burn-tch = { version = "0.16", optional = true }
+burn-wgpu = { version = "0.16", optional = true }
+
+# ONNX export support
+burn-import = "0.16"
+
+# Image processing and data loading
+image = "0.25"
+imageproc = "0.25"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Utilities
+rand = "0.8"
+rayon = "1.10"
+anyhow = "1.0"
+thiserror = "1.0"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[features]
+default = ["ndarray"]
+ndarray = []
+tch = ["burn-tch"]
+wgpu = ["burn-wgpu"]
+
+[[bin]]
+name = "train"
+path = "src/bin/train.rs"
+
+[[bin]]
+name = "infer"
+path = "src/bin/infer.rs"
+
+[[bin]]
+name = "export-onnx"
+path = "src/bin/export_onnx.rs"
